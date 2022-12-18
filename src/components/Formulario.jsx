@@ -4,7 +4,7 @@ const MySwal = withReactContent(Swal);
 import withReactContent from "sweetalert2-react-content";
 import shortid from "shortid";
 
-const Fomulario = ({ pasarGasto }) => {
+const Fomulario = ({ pasarGasto, reiniciar }) => {
   const [nombre, setNombre] = useState("");
   const [cantidad, setCantidad] = useState("");
 
@@ -12,11 +12,12 @@ const Fomulario = ({ pasarGasto }) => {
     e.preventDefault();
 
     // validar
-    if (nombre === "" || cantidad === 0) {
+    if (nombre === "" || cantidad === 0 || cantidad === "") {
       MySwal.fire({
         icon: "warning",
-        title: <p>Gasto invalido</p>,
+        title: <p className="txtAlert">Gasto invalido</p>,
       });
+      return;
     }
     const GASTO = {
       nombre,
@@ -28,6 +29,25 @@ const Fomulario = ({ pasarGasto }) => {
     setCantidad("");
     setNombre("");
   };
+
+  function eliminarPresupuesto() {
+    MySwal.fire({
+      title: (
+        <p className="txtAlert">¿Quiere eliminar el presupuesto actual?</p>
+      ),
+      showDenyButton: true,
+      confirmButtonText: "Si",
+      confirmButtonColor: "#FF8791",
+      denyButtonColor: "#83BFFF",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        reiniciar();
+      } else if (result.isDenied) {
+        return;
+        Swal.fire("", "", "info");
+      }
+    });
+  }
   return (
     <form onSubmit={agregarGasto}>
       <h2>Agrega tus gastos</h2>
@@ -59,6 +79,14 @@ const Fomulario = ({ pasarGasto }) => {
         value="Agregar Gasto"
         className="definir u-full-width"
       />
+      <p
+        className="red"
+        onClick={() => {
+          eliminarPresupuesto();
+        }}
+      >
+        Eliminar presupuesto
+      </p>
     </form>
   );
 };

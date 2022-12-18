@@ -13,8 +13,9 @@ const Pregunta = ({ setPresupuesto, setRestante }) => {
     if (cantidad <= 0 || isNaN(cantidad)) {
       MySwal.fire({
         icon: "warning",
-        title: <p>Presupuesto Invalido</p>,
+        title: <p className="txtAlert">Presupuesto Invalido</p>,
       });
+      return;
     }
 
     setPresupuesto(cantidad);
@@ -26,7 +27,6 @@ const Pregunta = ({ setPresupuesto, setRestante }) => {
       <h2>Coloca tu presupuesto </h2>
       <form onSubmit={definirPresupuesto}>
         <input
-          min="1"
           type="number"
           className="u-full-width"
           placeholder="Coloca tu presupuesto"
@@ -35,7 +35,7 @@ const Pregunta = ({ setPresupuesto, setRestante }) => {
           }}
         />
 
-        <input type="submit" className="definir u-full-width" value="definir" />
+        <input type="submit" className="definir" value="definir" />
       </form>
     </>
   );

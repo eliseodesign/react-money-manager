@@ -19,10 +19,23 @@ function App() {
     setRestante(res);
   }
 
+  function eliminarGasto(id) {
+    let nuevos = gastos.filter((gasto) => gasto.id !== id);
+    let eliminado = gastos.filter((gasto) => gasto.id === id);
+    setGastos(nuevos);
+    setRestante(restante + eliminado[0].cantidad);
+  }
+
+  function reiniciar() {
+    setPresupuesto(0);
+    setRestante(0);
+    setGastos([]);
+  }
+
   let mostrarQue = presupuesto === 0 || restante === 0;
   return (
     <div className="App">
-      <article className="container">
+      <article className="c">
         <h1>
           MoneyManager <CashIcon width={40} />
         </h1>
@@ -35,10 +48,10 @@ function App() {
           ) : (
             <div className="row">
               <div className="one-half column">
-                <Formulario pasarGasto={pasarGasto} />
+                <Formulario pasarGasto={pasarGasto} reiniciar={reiniciar} />
               </div>
               <div className="r one-half column">
-                <Listado gastos={gastos} />
+                <Listado gastos={gastos} eliminarGasto={eliminarGasto} />
                 <Presupuesto presupuesto={presupuesto} restante={restante} />
               </div>
             </div>
