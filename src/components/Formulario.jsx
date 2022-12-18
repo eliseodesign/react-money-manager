@@ -57,7 +57,7 @@ const Fomulario = ({ pasarGasto }) => {
       <input
         type="submit"
         value="Agregar Gasto"
-        className="button-primary u-full-width"
+        className="definir u-full-width"
       />
     </form>
   );

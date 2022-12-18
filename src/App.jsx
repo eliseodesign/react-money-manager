@@ -4,6 +4,8 @@ import Formulario from "./components/Formulario";
 import Listado from "./components/Listado";
 import Presupuesto from "./components/Presupuesto";
 
+import CashIcon from "./assets/CashIcon";
+
 function App() {
   const [presupuesto, setPresupuesto] = useState(0);
   const [restante, setRestante] = useState(0);
@@ -21,8 +23,9 @@ function App() {
   return (
     <div className="App">
       <article className="container">
-        <h1>Gasto Semanal</h1>
-
+        <h1>
+          MoneyManager <CashIcon width={40} />
+        </h1>
         <section className="contenido-principal contenido">
           {mostrarQue ? (
             <Pregunta
@@ -34,7 +37,7 @@ function App() {
               <div className="one-half column">
                 <Formulario pasarGasto={pasarGasto} />
               </div>
-              <div className="one-half column">
+              <div className="r one-half column">
                 <Listado gastos={gastos} />
                 <Presupuesto presupuesto={presupuesto} restante={restante} />
               </div>

@@ -26,6 +26,7 @@ const Pregunta = ({ setPresupuesto, setRestante }) => {
       <h2>Coloca tu presupuesto </h2>
       <form onSubmit={definirPresupuesto}>
         <input
+          min="1"
           type="number"
           className="u-full-width"
           placeholder="Coloca tu presupuesto"
@@ -34,7 +35,7 @@ const Pregunta = ({ setPresupuesto, setRestante }) => {
           }}
         />
 
-        <input type="submit" className="u-full-width" value="definir" />
+        <input type="submit" className="definir u-full-width" value="definir" />
       </form>
     </>
   );
