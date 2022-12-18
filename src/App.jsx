@@ -13,11 +13,11 @@ function App() {
   let res = localStorage.getItem("restante");
 
   const [presupuesto, setPresupuesto] = useState(() => {
-    if (!pre) return 1;
+    if (!pre) return 0;
     return Number(pre);
   });
   const [restante, setRestante] = useState(() => {
-    if (!res) return 1;
+    if (!res) return 0;
     return Number(res);
   });
   const [gastos, setGastos] = useState([]);
@@ -48,7 +48,7 @@ function App() {
     localStorage.setItem("restante", res);
   }, [presupuesto, restante]);
 
-  let mostrarQue = presupuesto === 0 || restante === 0;
+  let mostrarQue = presupuesto === 0 && restante === 0;
   return (
     <div className="App">
       <article className="c">
@@ -64,7 +64,11 @@ function App() {
           ) : (
             <div className="row">
               <div className="one-half column">
-                <Formulario pasarGasto={pasarGasto} reiniciar={reiniciar} res={restante}/>
+                <Formulario
+                  pasarGasto={pasarGasto}
+                  reiniciar={reiniciar}
+                  restante={restante}
+                />
               </div>
               <div className="r one-half column">
                 <Listado gastos={gastos} eliminarGasto={eliminarGasto} />

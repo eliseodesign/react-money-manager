@@ -1,3 +1,4 @@
+
 body {
   width: 100%;
   margin: 0;
@@ -141,8 +142,12 @@ h2 {
   color: #444;
   list-style: none;
   margin-bottom: 0rem;
-  border-bottom: 1px solid #e1e1e1;
+  border-bottom: 1px solid #51508b;
   padding: 1rem 0;
+
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .gastos-realizados li:last-of-type {
@@ -150,10 +155,8 @@ h2 {
 }
 
 .gastos-realizados li p {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
+  overflow: hidden;
+  width: 60%  ;
   margin: 0;
 }
 .gastos-realizados li .con {
@@ -161,7 +164,7 @@ h2 {
   align-items: center;
   /* justify-content:center; */
 }
-.gastos-realizados li p .gasto {
+.gastos-realizados li .gasto {
   display: flex;
   align-items: center;
   justify-content: space-around;

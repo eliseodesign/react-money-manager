@@ -4,7 +4,7 @@ const MySwal = withReactContent(Swal);
 import withReactContent from "sweetalert2-react-content";
 import shortid from "shortid";
 
-const Fomulario = ({ pasarGasto, reiniciar, res }) => {
+const Fomulario = ({ pasarGasto, reiniciar, restante }) => {
   const [nombre, setNombre] = useState("");
   const [cantidad, setCantidad] = useState("");
 
@@ -20,7 +20,7 @@ const Fomulario = ({ pasarGasto, reiniciar, res }) => {
       return;
     }
 
-    if (cantidad > res) {
+    if (cantidad > restante) {
       MySwal.fire({
         icon: "error",
         title: <p className="txtAlert">Gasto mayor a restante</p>,
