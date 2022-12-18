@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Pregunta from "./components/Pregunta";
 import Formulario from "./components/Formulario";
 import Listado from "./components/Listado";
@@ -7,11 +7,20 @@ import Presupuesto from "./components/Presupuesto";
 import CashIcon from "./assets/CashIcon";
 
 function App() {
-  const [presupuesto, setPresupuesto] = useState(0);
-  const [restante, setRestante] = useState(0);
-  const [gastos, setGastos] = useState([]);
+  // obtener storage
+  // estados
+  let pre = localStorage.getItem("presupuesto");
+  let res = localStorage.getItem("restante");
 
-  // actualiza restate
+  const [presupuesto, setPresupuesto] = useState(() => {
+    if (!pre) return 1;
+    return Number(pre);
+  });
+  const [restante, setRestante] = useState(() => {
+    if (!res) return 1;
+    return Number(res);
+  });
+  const [gastos, setGastos] = useState([]);
 
   function pasarGasto(nuevo) {
     setGastos([...gastos, nuevo]);
@@ -32,6 +41,13 @@ function App() {
     setGastos([]);
   }
 
+  useEffect(() => {
+    let pre = JSON.stringify(presupuesto);
+    localStorage.setItem("presupuesto", pre);
+    let res = JSON.stringify(restante);
+    localStorage.setItem("restante", res);
+  }, [presupuesto, restante]);
+
   let mostrarQue = presupuesto === 0 || restante === 0;
   return (
     <div className="App">
@@ -48,7 +64,7 @@ function App() {
           ) : (
             <div className="row">
               <div className="one-half column">
-                <Formulario pasarGasto={pasarGasto} reiniciar={reiniciar} />
+                <Formulario pasarGasto={pasarGasto} reiniciar={reiniciar} res={restante}/>
               </div>
               <div className="r one-half column">
                 <Listado gastos={gastos} eliminarGasto={eliminarGasto} />
