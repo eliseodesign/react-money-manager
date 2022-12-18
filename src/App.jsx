@@ -5,13 +5,14 @@ import Listado from "./components/Listado";
 import Presupuesto from "./components/Presupuesto";
 
 import CashIcon from "./assets/CashIcon";
+import Gasto from "./components/Gasto";
 
 function App() {
   // obtener storage
   // estados
   let pre = localStorage.getItem("presupuesto");
   let res = localStorage.getItem("restante");
-
+  let gast = localStorage.getItem("gastos");
   const [presupuesto, setPresupuesto] = useState(() => {
     if (!pre) return 0;
     return Number(pre);
@@ -20,7 +21,10 @@ function App() {
     if (!res) return 0;
     return Number(res);
   });
-  const [gastos, setGastos] = useState([]);
+  const [gastos, setGastos] = useState(() => {
+    if (!gast) return [];
+    return JSON.parse(gast);
+  });
 
   function pasarGasto(nuevo) {
     setGastos([...gastos, nuevo]);
@@ -44,8 +48,12 @@ function App() {
   useEffect(() => {
     let pre = JSON.stringify(presupuesto);
     localStorage.setItem("presupuesto", pre);
+    // ----
     let res = JSON.stringify(restante);
     localStorage.setItem("restante", res);
+    // ---
+    let gast = JSON.stringify(gastos);
+    localStorage.setItem("gastos", gast);
   }, [presupuesto, restante]);
 
   let mostrarQue = presupuesto === 0 && restante === 0;
